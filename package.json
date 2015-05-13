@@ -22,6 +22,7 @@
     "gulpsmith": "0.5.3",
     "metalsmith-templates": "0.7.0",
     "handlebars": "3.0.3",
-    "metalsmith-markdown": "^0.2.1"
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-collections": "^0.7.0"
   }
 }

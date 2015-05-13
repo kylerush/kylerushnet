@@ -1,8 +1,16 @@
-var Metalsmith = require('metalsmith');
-var templates = require('metalsmith-templates');
-var markdown = require('metalsmith-markdown');
+var metalsmith = require('metalsmith'),
+    collections = require('metalsmith-collections'),
+    markdown = require('metalsmith-markdown'),
+    templates = require('metalsmith-templates');
 
-var metalsmith = Metalsmith(__dirname)
+metalsmith(__dirname)
+  .use(collections({
+    blogPosts: {
+      pattern: '*.md',
+      sortBy: 'date',
+      reverse: true
+    }
+  }))
   .use(markdown({
     smartypants: true
   }))

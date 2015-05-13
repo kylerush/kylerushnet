@@ -1,5 +1,6 @@
 ---
-template: index.html
+template: index.hbs
+date: 2014-04-15
 bodyID: blog
 title: Busting the small startups can't a/b test myth
 description: Busting the small startups can't a/b test myth
