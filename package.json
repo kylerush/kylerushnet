@@ -1,0 +1,18 @@
+{
+  "name": "kylerushnet",
+  "version": "0.0.0",
+  "description": "Kyle Rush personal website",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kylerush/kylerushnet.git"
+  },
+  "author": "Kyle Rush",
+  "bugs": {
+    "url": "https://github.com/kylerush/kylerushnet/issues"
+  },
+  "homepage": "https://github.com/kylerush/kylerushnet",
+  "dependencies": {
+    "metalsmith": "1.7.0"
+  }
+}
