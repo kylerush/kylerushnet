@@ -11,8 +11,17 @@
   "bugs": {
     "url": "https://github.com/kylerush/kylerushnet/issues"
   },
+  "scripts": {
+    "build": "node build.js"
+  },
   "homepage": "https://github.com/kylerush/kylerushnet",
   "dependencies": {
-    "metalsmith": "1.7.0"
+    "metalsmith": "1.7.0",
+    "grunt-cli": "0.1.13",
+    "gulp": "3.8.11",
+    "gulpsmith": "0.5.3",
+    "metalsmith-templates": "0.7.0",
+    "handlebars": "3.0.3",
+    "metalsmith-markdown": "^0.2.1"
   }
 }
