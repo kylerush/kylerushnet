@@ -3,10 +3,13 @@
     <title>{{ title }}</title>
   </head>
   <body>
-    {{#each collections.blogPosts}}
-      <div style="margin-bottom: 30px;">
-        <h2> {{this.title}} </h2>
-      </div>
+    {{#each collections.posts}}
+      <a href="blog/{{this.name}}/index.html">
+        <h2>{{{this.title}}}</h2>
+        <p>{{formatDate this.date}}</p>
+        <p>{{this.summary}}</p>
+        <p><a href=""></a></p>
+      </a>
     {{/each}}
   </body>
 </html>
