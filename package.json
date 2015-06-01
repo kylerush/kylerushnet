@@ -16,13 +16,21 @@
   },
   "homepage": "https://github.com/kylerush/kylerushnet",
   "dependencies": {
-    "handlebars": "3.0.3",
+    "autoprefixer-core": "^5.2.0",
+    "gulp": "^3.8.11",
+    "gulp-postcss": "^5.1.8",
     "metalsmith": "1.7.0",
     "metalsmith-collections": "^0.7.0",
+    "metalsmith-layouts": "^1.0.0",
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-paths": "^1.0.2",
     "metalsmith-permalinks": "^0.4.0",
     "metalsmith-templates": "0.7.0",
-    "moment": "^2.10.3"
+    "moment": "^2.10.3",
+    "postcss-import": "^5.2.2",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "gulp-connect": "^2.2.0"
   }
 }

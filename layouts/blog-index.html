@@ -1,0 +1,14 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+
+{% for post in collections.posts %}
+  <div>
+    <h2><a href="blog/{{ post.name }}/index.html">{{ post.title }}</a></h2>
+    <p>{{ post.date|date('M j, Y') }}</p>
+    <p>{{ post.long_description }}</p>
+    <p><a href="blog/{{ post.name }}/index.html">Read more</a></p>
+  </div>
+{% endfor %}
+
+{% endblock %}

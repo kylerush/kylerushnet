@@ -1,5 +1,7 @@
 var collections  = require('metalsmith-collections'),
-    Handlebars   = require('handlebars'),
+    gulp         = require('gulp'),
+    swig         = require('swig'),
+    layouts      = require('metalsmith-layouts'),
     markdown     = require('metalsmith-markdown'),
     metalsmith   = require('metalsmith'),
     moment       = require('moment'),
@@ -7,6 +9,14 @@ var collections  = require('metalsmith-collections'),
     permalinks   = require('metalsmith-permalinks'),
     templates    = require('metalsmith-templates');
 
+
+gulp.task('css', function(){
+  var cssimport    = require('postcss-import'),
+      postcss   = require('gulp-postcss');
+
+  return gulp.src('./src/css/styles.css')
+        .pipe(postcss([cssimport]));
+});
 
 metalsmith(__dirname)
   .use(paths())
@@ -17,16 +27,11 @@ metalsmith(__dirname)
       reverse: true
     }
   }))
-  .use(markdown({
-    smartypants: true
+  .use(markdown())
+  .use(templates('swig'))
+  .use(layouts({
+    engine: 'swig'
   }))
-  .use(function(files, metalsmith, done){
-    Handlebars.registerHelper('formatDate', function(date) {
-      return moment(date).format('MMM D, YYYY');
-    });
-    done();
-  })
-  .use(templates('handlebars'))
   .use(permalinks({
     relative: false,
     pattern: 'blog/:name'

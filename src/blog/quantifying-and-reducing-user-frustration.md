@@ -1,0 +1,82 @@
+---
+layout: blog-post.html
+type: blog-post
+date: 2013-07-09
+title: Quantifying and reducing user frustration
+long_description: On the Obama campaign we observed that user frustration was strongly linked to conversion rates. Because of this, reducing frustration became a priority. This is how we measured user frustration and three examples of how we reduced it.
+short_description: Reducing user frustration can have a beneficial impact on conversion rates.
+---
+##Why it's important to reduce user frustration
+
+Everyone wants things that are easy to use, but more often than not easy-to-use gets sidelined as nice-to-have. However, reducing frustration is much more than a nice-to-have. Consider a data gathering exercise we executed on the Obama campaign to figure out how important it is to reduce user frustration.
+
+After a successful donation we displayed a follow up ask to save your payment information. After successfully completing this ask donating again was a one-click process. We called this the Quick Donate opt-in. This was a high value conversion for us because our data showed that users who had saved their payment information were [four times more likely to donate again](http://www.businessweek.com/articles/2012-11-21/corporations-want-obamas-winning-formula).
+
+We measured the conversion rate on the opt-in page between two user segments: Users who had at least one error in their donate form and users who had no errors at all. The users who had no error at all had a 7% higher conversion rate on the opt-in. We tested this twice and received the exact same result. When we saw that information, suddenly reducing frustration (i.e. error rates) went from nice-to-have to mission critical.
+
+##Quantifying user frustration
+
+The first step in reducing user frustration is to start quantifying it. Google Analytics custom events are an easy and free way to do this. The best approach is to start measuring everything you can think of. Below is an iteration of one of our donate forms from the Obama campaign.
+
+<center>![Donate form screenshot](http://cdn.kylerush.org/kr/images/donate-form-control.png)</center>
+
+This form had client side as well as server side validation meaning we used JavaScript to validate each form field value before we sent the data to the server. This was primarily done because it is a better user experience. JavaScript validation is much faster because the user doesn’t have to wait for the response on an HTTP request to get feedback on errors in the form--a big reduction in user frustration--nobody wants to wait for that.
+
+Since client side validation was already in place, it was very easy to add GA custom events to the functions that validated form fields and reported details about the errors. The first thing we did was send a GA event for every form field that was invalid. For example, if the email address field did not validate, we execute the following JavaScript.
+
+We also added a GA custom event for the number of errors that occurred.
+
+<!--GA code snippet here-->
+
+Lastly we added an event to measure the amount of time it took to receive a response from the server when the form was submitted. We grouped this into 100ms groups.
+
+<script src="https://gist.github.com/kylerush/5955920.js"></script>
+
+Here is a screenshot of some of the events from our Google Analytics account:
+
+![Screenshot of Google Analytics custom events](http://cdn.kylerush.org/kr/images/ga-custom-events-errors.png)
+
+We left these reporting functions in production for the rest of the campaign and found some interesting problems.
+
+The first thing that we noticed was that our error rates were much higher than we thought they were and much higher than we were comfortable with.
+
+The second thing we noticed was that a large percentage of users had an error for the radio button group to select the credit card type. Our first thought was that users either did not notice the credit card type radio button or saw it and forgot to select a radio. We dug a little deeper with GA custom events and found that this was indeed the case. The vast majority of the errors were from users not entering a credit card type at all.
+
+Third, a lot of users had an error on the credit card number field. Our gut in this case was that it is difficult for users to enter a string of 15-16 digits correctly.
+
+The fourth issue was that a high percentage of users had exactly two errors when they submitted the donate form. Coincidentally, the two fields with the second highest error rate (after credit card number) was employer and occupation. We didn’t have any idea why this was happening.
+
+##Reducing user frustration
+
+Our first thought on the generally high error rate was that users may not know which fields are required. So we added some more GA events for each field which reported if a value was entered in the fields at all. Sure enough we saw that users were leaving fields blank, even though they were required. When we looked at our form we noticed that there was no indication of what was required. We created a variation which added an astersisk to all the required fields and a/b tested it.
+
+<a href="http://cdn.kylerush.org/kr/images/required-asterisks-full.png" target="_blank"><img alt="Required asterisk experiment screenshot" src="http://cdn.kylerush.org/kr/images/required-asterisks.png"></a>
+
+**By adding an asterisk to indicate required fields, we reduced the error rate by 9.8%**.
+
+To solve the credit card type selection problem we created a variation of the donate page that auto-selected the credit card type. This could be done because we only accepted 4 types of cards and they each had a distinct number pattern. All MasterCards start with a 5, all Viasas start with a 4, all Discover cards start with a 4 and AmericanExpress cards start with a 3. We a/b tested this variation against the control. Below are the results.
+
+<a href="http://cdn.kylerush.org/kr/images/cc-detection-full.png" target="_blank"><img alt="Automatic credit card type detection expriment screenshot" src="http://cdn.kylerush.org/kr/images/cc-detection.png"></a>
+
+**By automatically selecting the credit card type instead of asking a user to, we reduced the error rate by 13%.**
+
+For the third problem, we created an experiment to test our hypothesis that it is difficult for users to enter a string of 15-16 digits. We built a variation of the donate page that formatted the credit card numbers almost exactly how they appeared on a credit card. Below are the results.
+
+![Credit card number formatting experiment screenshot](http://cdn.kylerush.org/kr/images/formatted-credit-card-number.png)
+
+<strong>By formatting the credit card number, thus making it easier for users to parse, we reduced the error rate on the field by 15%.</strong>
+
+Lastly, on the high occurrence of errors on the employer and occupation fields, we looked at data that people were entering into the fields on successful submission. Many of the responses were along the lines of “None of your business.” Campaigns are required by law to collect this information so while it may or may not have been our business, we had to collect it. At this point we figured that users just weren’t comfortable entering the information and that there wasn’t much we could do about it.
+
+That all changed when we decided to do some user testing on our donate forms. We sat volunteers down on a computer and recorded them making donations using a Mac application called Silverback. (You can read much more in depth about this in my other blog post: User testing is surprising effectively) We found that retired people and students did not know what to enter into the fields.
+
+We created a variation that included the hint, “If you are retired, enter retired in both fields.” and a/b tested it against the control. The results are below.
+
+
+![Employer and occupation field hint experiment screenshot](http://cdn.kylerush.org/kr/images/employer-occupation.png)
+
+**By adding a helpful hint to the employer and occupation fields we were able to reduce the error rate by 63%.**
+
+##Reducing user frustration is mission critical
+
+As I’ve shown above, reducing user frustration can have a big affect on high value conversions. You might not know it, but frustration could be reducing conversions on your app, whether that conversion is usage, form submissions, time on site, bounce rate, repeat visits, or just about anything else. Quantifying frustration is relatively easy and once you do you can make big gains in reducing it with a/b testing.

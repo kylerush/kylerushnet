@@ -1,0 +1,7 @@
+{% extends 'wrapper.html' %}
+
+{% block content %}
+<article>
+{% autoescape false %}{{ contents }}{% endautoescape %}
+</article>
+{% endblock %}

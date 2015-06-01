@@ -1,15 +1,8 @@
-<html>
-  <head>
-    <title>{{ title }}</title>
-  </head>
-  <body>
-    {{#each collections.posts}}
-      <a href="blog/{{this.name}}/index.html">
-        <h2>{{{this.title}}}</h2>
-        <p>{{formatDate this.date}}</p>
-        <p>{{this.summary}}</p>
-        <p><a href=""></a></p>
-      </a>
-    {{/each}}
-  </body>
-</html>
+{% post in colletions.posts %}
+<div>
+  <h2><a href="blog/{{post.name}}/index.html">{{pst.title}}</a></h2>
+  <p></p>
+  <p>{{post.long_description}}</p>
+  <p><a href="blog/{{post.name}}/index.html">Read more</a></p>
+</div>
+{% endfor %}

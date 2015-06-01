@@ -1,9 +1,10 @@
 ---
-template: blog-post.hbs
+layout: blog-post.html
+type: blog-post
 date: 2014-03-05
-body_id: blog
 title: Tips for working with JSON APIs in JavaScript
-summary: Many unexpected issues can happen when you're working with an API. This post provides some tips on how to avoid JavaScript errors when working with an API.
+long_description: Many unexpected issues can happen when you're working with an API. This post provides some tips on how to avoid JavaScript errors when working with an API.
+short_description:
 ---
 Many unexpected errors can occur when you're working with an API. When you're consuming an API in JavaScript, one error can stop the entire JavaScript engine and completely break your app. Here are some tips to prevent this from happening.
 

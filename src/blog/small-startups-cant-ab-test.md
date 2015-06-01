@@ -1,9 +1,10 @@
 ---
-template: blog-post.hbs
+layout: blog-post.html
+type: blog-post
 date: 2014-04-15
-body_id: blog
 title: Busting the small startups can't a/b test myth
-summary: I often hear in the startup community that small startups can't a/b test. While it's true that small startups can't detect subtle changes in the conversion rate, there is still a lot of value for small startups to a/b test.
+long_description: I often hear in the startup community that small startups can't a/b test. While it's true that small startups can't detect subtle changes in the conversion rate, there is still a lot of value for small startups to a/b test.
+short_description:
 ---
 As the head of Optimization at [Optimizely](https://www.optimizely.com) I often hear in the startup community that small startups cannot run meaningful a/b tests because they have low traffic levels. This is not true. Let me explain why.
 
