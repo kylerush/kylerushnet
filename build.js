@@ -9,16 +9,7 @@ var collections  = require('metalsmith-collections'),
     permalinks   = require('metalsmith-permalinks'),
     templates    = require('metalsmith-templates');
 
-
-gulp.task('css', function(){
-  var cssimport    = require('postcss-import'),
-      postcss   = require('gulp-postcss');
-
-  return gulp.src('./src/css/styles.css')
-        .pipe(postcss([cssimport]));
-});
-
-metalsmith(__dirname)
+metalsmith('./src/html/content')
   .use(paths())
   .use(collections({
     posts: {
@@ -28,14 +19,24 @@ metalsmith(__dirname)
     }
   }))
   .use(markdown())
-  .use(templates('swig'))
   .use(layouts({
-    engine: 'swig'
+    engine: 'swig',
+    directory: '../layouts'
   }))
   .use(permalinks({
     relative: false,
     pattern: 'blog/:name'
   }))
+  .destination('../../../build')
   .build(function(err){
     if(err) throw err;
   });
+
+gulp.task('css', function(){
+  var cssimport    = require('postcss-import'),
+      postcss   = require('gulp-postcss');
+
+  return gulp.src('./src/css/styles.css')
+        .pipe(postcss([cssimport]))
+        .pipe(gulp.dest('./build'));
+});
