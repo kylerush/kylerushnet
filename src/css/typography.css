@@ -1,0 +1,23 @@
+.btstrp {
+
+  :--heading, :--heading a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  /* body copy */
+  p {
+    font-size: 16px;
+  }
+
+  .summary {
+
+
+
+  }
+
+}

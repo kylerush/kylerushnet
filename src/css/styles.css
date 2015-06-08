@@ -1,2 +1,4 @@
-@import 'noramlize.css';
+@import 'normalize.css';
 @import 'global.css';
+@import 'typography.css';
+@import 'header.css';

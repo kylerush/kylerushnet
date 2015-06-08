@@ -1,25 +1,10 @@
-<!doctype html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tips for working with JSON APIs in JavaScript</title>
-  </head>
-  <body>
-    <header>
-      <h1>Kyle Rush</h1>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about-kyle-rush">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/speaking">Speaking</a></li>
-      </ul>
-    </header>
-    <div id="main">
-    
-<article>
+<hr>
+<p>layout: blog-post.html
+type: blog-post
+date: 2014-03-05
+title: Tips for working with JSON APIs in JavaScript
+long_description: Many unexpected issues can happen when you&#39;re working with an API. This post provides some tips on how to avoid JavaScript errors when working with an API.</p>
+<h2 id="short_description-">short_description:</h2>
 <p>Many unexpected errors can occur when you&#39;re working with an API. When you&#39;re consuming an API in JavaScript, one error can stop the entire JavaScript engine and completely break your app. Here are some tips to prevent this from happening.</p>
 <h2 id="check-to-see-if-you-actually-received-json">Check to see if you actually received JSON</h2>
 <p>You might start your code like this:</p>
@@ -46,16 +31,3 @@
 <p>Once you put this tracking in place you might be surprised how many errors occur. Below is a screenshot of the Google Analytics account from the Obama campaign once I put this tracking in place. It shows that, for the month of August 2012, we had 137,430 unique and 1,571,080 non-unique unexpected/malformed responses from our own internal APIs. Had we not strictly checked the type before trying to use properties of the JSON object in the response, that would have resulted in a lot of JavaScript errors.</p>
 <p><img src="http://cdn.kylerush.org/kr/images/api-response-errors.png" alt="API response errors"></p>
 <p>Now we&#39;ve checked for almost every type of problem with the response on the XHR request and we will know exactly how many times each problem will occur.</p>
-
-</article>
-
-    </div><!--/#main-->
-    <footer>
-      <ul>
-        <li><a href="">Twitter</a></li>
-        <li><a href="">GitHub</a></li>
-        <li><a href="">RSS</a></li>
-      </ul>
-    </footer>
-  </body>
-</html>
