@@ -1,6 +1,6 @@
 const _            = require('lodash');
+const browserSync  = require('browser-sync').create();
 const collections  = require('metalsmith-collections');
-const connect      = require('gulp-connect');
 const cssmixins    = require('postcss-mixins')();
 const cssnested    = require('postcss-nested')();
 const cssnext      = require('cssnext')();
@@ -23,22 +23,19 @@ gulp.task('del', () => {
   del('./build');
 });
 
-gulp.task('connect', () => {
-  connect.server({
-    root: './build',
-    livereload: true
-  });
+gulp.task('del-html', () => {
+  del('./build/html');
 });
 
 gulp.task('connect', () => {
   connect.server({
     root: './build',
+    host: '*',
     livereload: true
   });
 });
 
 gulp.task('html', () => {
-
   gulp.src('./src/html/content/**/*.{html,md}')
     .pipe(frontmatter())
     .on('data', (file) => {
@@ -65,15 +62,25 @@ gulp.task('html', () => {
           pattern: 'blog/:name'
         }))
     )
-    .pipe(gulp.dest('./build/html'))
-    .pipe(connect.reload());
+    .pipe(gulp.dest('./build/html'));
 });
 
 gulp.task('css', () => {
   gulp.src('./src/css/styles.css')
     .pipe(postcss([cssnext, cssnested, cssmixins]))
     .pipe(gulp.dest('./build/css'))
-    .pipe(connect.reload());
+    .pipe(browserSync.stream());;
+});
+
+gulp.task('browser-sync', () => {
+  browserSync.init({
+    server: './build',
+    files: ['./src/build/**']
+  });
+});
+
+gulp.task('browser-sync-reload', () => {
+  browserSync.reload();
 });
 
 gulp.task('watch', () => {
@@ -81,4 +88,4 @@ gulp.task('watch', () => {
   gulp.watch('./src/html/**', ['html']);
 });
 
-gulp.task('dev', ['connect', 'html', 'css', 'watch']);
+gulp.task('dev', ['html', 'css', 'browser-sync', 'watch']);
