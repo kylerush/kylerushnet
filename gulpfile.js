@@ -1,9 +1,11 @@
+const _            = require('lodash');
 const collections  = require('metalsmith-collections');
 const connect      = require('gulp-connect');
 const cssmixins    = require('postcss-mixins')();
 const cssnested    = require('postcss-nested')();
 const cssnext      = require('cssnext')();
 const del          = require('del');
+const frontmatter  = require('gulp-front-matter');
 const gulp         = require('gulp');
 const gulpsmith    = require('gulpsmith');
 const layouts      = require('metalsmith-layouts');
@@ -38,6 +40,11 @@ gulp.task('connect', () => {
 gulp.task('html', () => {
 
   gulp.src('./src/html/content/**/*.{html,md}')
+    .pipe(frontmatter())
+    .on('data', (file) => {
+      _.assign(file, file.frontMatter);
+      delete file.frontMatter;
+    })
     .pipe(
       gulpsmith()
         .use(paths())
@@ -51,7 +58,7 @@ gulp.task('html', () => {
         .use(markdown())
         .use(layouts({
           engine: 'swig',
-          directory: '../layouts'
+          directory: 'src/html/layouts'
         }))
         .use(permalinks({
           relative: false,
@@ -75,7 +82,3 @@ gulp.task('watch', () => {
 });
 
 gulp.task('dev', ['connect', 'html', 'css', 'watch']);
-
-gulp.task('default', () => {
-  console.log('hi');
-});
